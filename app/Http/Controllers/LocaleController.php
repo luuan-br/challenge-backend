@@ -72,7 +72,7 @@ class LocaleController extends Controller
                     "end" => $date_max
                 ],
                 "locale" => $data,
-                "weather" => $weathers
+                "weathers" => [...$weathers]
             ];
 
             return response()->json($res, 200);
