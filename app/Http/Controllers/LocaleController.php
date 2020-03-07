@@ -62,6 +62,17 @@ class LocaleController extends Controller
             $date_max = $request->date_max;
 
             $data = $this->locale::where('name', $name)->get();
+
+            if (count($data) == 0) {
+                return response()->json(
+                    ApiError::errorMessage(
+                        'Sorry: Location information '.$name.' not currently available.',
+                        404
+                    ),
+                    202
+                );
+            }
+
             $weathers = $this->locale::find($data[0]->id)
                 ->weathers
                 ->whereBetween('date', [$date_min, $date_max]);
